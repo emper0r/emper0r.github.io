@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antonio Peña Díaz – Senior Linux & Cloud Sysadmin</title>
+
+<style>
+    /* ------------------- GLOBAL ------------------- */
+    :root {
+        --accent: #58a6ff;
+        --emperor: #ff0055; /* color alusivo a tu nickname */
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        scroll-behavior: smooth;
+        transition: background 0.4s, color 0.4s;
+        opacity: 0;
+        animation: fadePage 1s forwards;
+    }
+
+    @keyframes fadePage {
+        to { opacity: 1; }
+    }
+
+    header {
+        padding: 100px 20px 60px;
+        text-align: center;
+        position: relative;
+    }
+
+    header img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 4px solid var(--accent);
+        margin-bottom: 20px;
+        object-fit: cover;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin: 0;
+    }
+
+    .typing {
+        border-right: 3px solid var(--accent);
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        animation: typing 4s steps(40,end) forwards, blink 0.6s infinite;
+        margin: 10px auto;
+        font-size: 1.2rem;
+        max-width: 600px;
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 600px; }
+    }
+
+    @keyframes blink {
+        50% { border-color: transparent; }
+    }
+
+    nav {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 15px;
+        backdrop-filter: blur(10px);
+        z-index: 20;
+        transition: 0.4s;
+    }
+
+    nav a {
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+        padding-bottom: 5px;
+    }
+
+    nav a:hover {
+        border-bottom: 2px solid var(--accent);
+    }
+
+    /* Scroll animations */
+    .fade {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.8s;
+    }
+    .fade.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    section {
+        padding: 60px 20px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+        gap: 15px;
+    }
+
+    .skill-box {
+        padding: 15px;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 12px 20px;
+        background: var(--accent);
+        color: white;
+        font-weight: bold;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-top: 20px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 40px 10px;
+        opacity: 0.7;
+    }
+
+    /* ------------------- THEMES ------------------- */
+
+    /* Night Theme (auto) */
+    .theme-night {
+        background: #0d1117;
+        color: #e6edf3;
+    }
+    .theme-night nav { background:#0d111788; border-bottom:1px solid #30363d; }
+    .theme-night nav a { color:#e6edf3; }
+    .theme-night .skill-box {
+        background:#161b22;
+        border:1px solid #30363d;
+    }
+    .theme-night .skill-box:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+    }
+
+    /* Day Theme (Apple style) */
+    .theme-day {
+        background:#f5f5f7;
+        color:#1d1d1f;
+    }
+    .theme-day nav { background:#ffffffdd; border-bottom:1px solid #ccc; }
+    .theme-day nav a { color:#1d1d1f; }
+    .theme-day .skill-box {
+        background:white;
+        border:1px solid #ddd;
+        box-shadow: 0 2px 6px #0002;
+    }
+    .theme-day .skill-box:hover { transform: translateY(-3px); }
+
+    /* Terminal Theme */
+    .theme-terminal {
+        background:black;
+        color:#00ff88;
+        font-family: "Courier New", monospace;
+    }
+    .theme-terminal nav { background:black; border-bottom:1px solid #00ff88; }
+    .theme-terminal nav a { color:#00ff88; }
+    .theme-terminal .skill-box {
+        background:#001a0f;
+        border:1px solid #00ff88;
+    }
+
+    /* Cyberpunk */
+    .theme-cyberpunk {
+        background:black;
+        color:#eaff00;
+    }
+    .theme-cyberpunk nav { background:#000; border-bottom:2px solid #ff00d4; }
+    .theme-cyberpunk nav a { color:#eaff00; }
+    .theme-cyberpunk .skill-box {
+        background:#111;
+        border:1px solid #ff00d4;
+    }
+    .theme-cyberpunk .skill-box:hover { border-color:#eaff00; }
+
+</style>
+</head>
+
+<body>
+
+<!-- ------------------- THEME SELECTOR ------------------- -->
+<div class="theme-selector" style="position:fixed;top:20px;right:20px;z-index:99;">
+    <select onchange="manualTheme(this.value)">
+        <option value="">Auto Theme</option>
+        <option value="theme-day">Apple Clean</option>
+        <option value="theme-night">Dark Tech</option>
+        <option value="theme-terminal">Terminal Hacker</option>
+        <option value="theme-cyberpunk">Cyberpunk</option>
+    </select>
+</div>
+
+<!-- ------------------- HEADER ------------------- -->
+<header class="fade">
+    <img src="yourphoto.png" alt="Profile Photo">
+
+    <h1>Antonio Peña Díaz</h1>
+
+    <div class="typing">
+        Senior Linux & Cloud System Administrator • DevOps • Networking Expert
+    </div>
+
+    <a class="button" href="cv.pdf">Download PDF CV</a>
+</header>
+
+<!-- ------------------- NAV ------------------- -->
+<nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<!-- ------------------- SECTIONS ------------------- -->
+
+<section id="about" class="fade">
+    <h2>🚀 About Me</h2>
+    <p>
+        Senior Linux & Cloud SysAdmin with 15+ years of experience managing critical infrastructures, 
+        distributed networks, HA clusters, automation systems and DevOps workflows.
+        Focused on stability, scalability and elegant solutions.
+    </p>
+</section>
+
+<section id="skills" class="fade">
+    <h2>🧠 Technical Skills</h2>
+    <div class="skills-grid">
+        <div class="skill-box">Linux (Debian/Ubuntu, CentOS/RHEL)</div>
+        <div class="skill-box">Ansible Automation</div>
+        <div class="skill-box">Infrastructure as Code</div>
+        <div class="skill-box">SaaS Cloud Platforms</div>
+        <div class="skill-box">MySQL/MariaDB/Percona Clusters</div>
+        <div class="skill-box">HAProxy & Keepalived</div>
+        <div class="skill-box">Networking (VLAN, LACP, Routing)</div>
+        <div class="skill-box">Zabbix, Netdata, Cacti</div>
+        <div class="skill-box">VMWare, Proxmox, XEN</div>
+        <div class="skill-box">Python & Bash</div>
+    </div>
+</section>
+
+<section id="experience" class="fade">
+    <h2>💼 Experience</h2>
+
+    <h3>APKAPPA s.r.l — Senior Linux & Cloud SysAdmin (2019–Present)</h3>
+    <ul>
+        <li>Automation with Ansible for SaaS operations.</li>
+        <li>High Availability using HAProxy + Keepalived.</li>
+        <li>Database Clustering: MySQL, MariaDB, Percona.</li>
+        <li>VMWare virtualization and Veeam enterprise backups.</li>
+        <li>Python/Bash scripting for internal tooling.</li>
+    </ul>
+
+    <h3>Computer Time s.r.l — Sysadmin / Network (2014–2019)</h3>
+    <ul>
+        <li>Firewall admin: Zyxel, Watchguard, Fortinet, Barracuda.</li>
+        <li>Virtualization: ESXi, Proxmox, Hyper-V.</li>
+        <li>Lead developer of “Aron” automation suite.</li>
+        <li>VPN, VLAN, routing, monitoring.</li>
+    </ul>
+
+    <h3>INFOMED Cuba — Senior SysAdmin (2006–2013)</h3>
+    <ul>
+        <li>Email, DNS, LDAP, Radius infrastructure.</li>
+        <li>Backup enterprise systems with Bacula + Tape Libraries.</li>
+        <li>Load balancing, QoS, clusters, monitoring.</li>
+    </ul>
+</section>
+
+<section id="projects" class="fade">
+    <h2>🛠 Projects</h2>
+    <ul>
+        <li><a href="https://github.com/emper0r/aron-proxy">Aron Proxy</a></li>
+        <li><a href="https://github.com/emper0r/aron-lic">Aron License</a></li>
+        <li><a href="https://github.com/emper0r/aron-conf">Aron Config</a></li>
+        <li><a href="https://github.com/emper0r/aron-install">Aron Installer</a></li>
+        <li><a href="https://github.com/emper0r/IVAO-status">IVAO Linux Tools</a></li>
+    </ul>
+</section>
+
+<section id="contact" class="fade">
+    <h2>📬 Contact</h2>
+    <p>Email: <a href="mailto:tonypenadiaz@gmail.com">tonypenadiaz@gmail.com</a></p>
+    <p>GitHub: <a href="https://emper0r.github.io">emper0r.github.io</a></p>
+    <p>LinkedIn: tu-link-aquí</p>
+</section>
+
+<footer>
+    © 2025 — Built by Antonio Peña Díaz (Emper0r)
+</footer>
+
+<script>
+/* ------------------- AUTO THEME ------------------- */
+function autoTheme() {
+    let hour = new Date().getHours();
+    if (hour >= 7 && hour < 19) {
+        document.body.className = "theme-day";
+    } else {
+        document.body.className = "theme-night";
+    }
+}
+autoTheme();
+
+/* ------------------- MANUAL THEME SELECTOR ------------------- */
+function manualTheme(theme) {
+    if (theme === "") autoTheme();
+    else document.body.className = theme;
+}
+
+/* ------------------- SCROLL ANIMATIONS ------------------- */
+const faders = document.querySelectorAll('.fade');
+function checkFade() {
+    const trigger = window.innerHeight * 0.85;
+    faders.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < trigger) el.classList.add('visible');
+    });
+}
+window.addEventListener('scroll', checkFade);
+window.addEventListener('load', checkFade);
+</script>
+
+</body>
+</html>
